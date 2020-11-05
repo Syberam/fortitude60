@@ -7,12 +7,19 @@ These instructions assume you have the QMK Firmware build environment and a firm
 
 ### First-Time Burning Instructions (Linux, macOS, Msys2 on Windows)
 1.  In the same way you would install any other QMK Firmware, navigate into the ``QMK Firmware`` directory and run the commands listed below:
-To burn the firmware for the left-hand side of the keyboard: ``make fortitude60/rev1:default:avrdude-split-left``  
+To burn the firmware for the left-hand side of the keyboard: ``make fortitude60/rev1:default:avrdude-split-left``
 To burn the firmware for the right-hand side of the keyboard: ``make fortitude60/rev1:default:avrdude-split-right``
+> Or, with qmk CLI: 
+> - If you installed qmk_firmware CLI and configured your default keyboard (fortitude60/rev1) and default keymap you can run:
+>   - `qmk flash -bl avrdude-split-left` on left chip
+>   - `qmk flash -bl avrdude-split-right`on the right one
+> 
+> - If you have not configured your default keyboard and keymap in the CLI, or you have multiple keyboards, you can specify the keyboard and/or keymap:
+>    - `qmk flash -kb fortitude60/rev1 [-km <your_keymap_name>] -bl avrdude-split-end`
+>    - `qmk flash -kb fortitude60/rev1 [-km <your_keymap_name>] -bl avrdude-split-right`
+2. When you see the message, ``Detecting USB port, reset your controller now........`` during the build process, create a short between the Reset (RST) and GND pins on the MCU using a pair of tweezers. This will put the MCU into Write Mode. (Note: Be careful not to accidentally touch the nearby 5V pin!)
 
-1. When you see the message, ``Detecting USB port, reset your controller now........`` during the build process, create a short between the Reset (RST) and GND pins on the MCU using a pair of tweezers. This will put the MCU into Write Mode. (Note: Be careful not to accidentally touch the nearby 5V pin!)
-
-2. When you see the message, ``avrdude.exe done.  Thank you.``, the firmware has been written successfully.
+3. When you see the message, ``avrdude.exe done.  Thank you.``, the firmware has been written successfully.
 
 If you are using Windows 10, after you have completed burning the firmware for the left-hand side of the keyboard, when you navigate to [Bluetooth and Other Devices], under [Settings]-[Devices], the keyboard will appear as ``The Fortitude60 Keyboard``.
 
